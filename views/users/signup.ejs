@@ -1,0 +1,54 @@
+<% layout("layouts/boilerplate") %>
+
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card signup-card shadow-lg border-0" style="width: 50%; max-width: 600px;">
+    <div class="card-body p-4">
+      <h3 class="text-center mb-3 fw-bold text-uppercase" style="font-family: 'Poppins', sans-serif;">
+        Signup on Wanderlust 
+      </h3>
+      <p class="text-center text-muted mb-4">
+        Create your account and unlock curated journeys ✦
+      </p>
+
+      <form action="/signup" method="POST" class="needs-validation" novalidate>
+        
+        <!-- Username -->
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" id="username" name="username" class="form-control"
+                 placeholder="e.g. manish" required maxlength="30">
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Please provide a username!</div>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" name="email" class="form-control"
+                 placeholder="you@domain.com" required>
+          <div class="invalid-feedback">Please enter a valid email!</div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <div class="input-group">
+            <input type="password" id="password" name="password" class="form-control"
+                   placeholder="Enter a strong password" required minlength="6">
+            <button type="button" class="btn btn-outline-secondary" id="togglePassword">Show</button>
+            <div class="invalid-feedback">Password must be at least 6 characters!</div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-grid">
+          <button type="submit" class="btn btn-success">Create Account</button>
+        </div>
+
+        <p class="text-center mt-3 mb-0 text-muted">
+          Already have an account? <a href="/login" class="fw-semibold text-decoration-none">Login</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>

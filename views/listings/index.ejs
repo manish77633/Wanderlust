@@ -1,0 +1,120 @@
+<% layout("layouts/boilerplate") %>
+
+  <body>
+
+    <div class="catagory">
+       <div class="filters-container">
+      <div class="filter-item">
+        <i class="fa-solid fa-fire"></i>
+        <span>Trending</span>
+      </div>
+      <div class="filter-item">
+        <i class="fa-solid fa-mountain"></i>
+        <span>Adventure</span>
+      </div>
+      <div class="filter-item">
+        <i class="fa-solid fa-tree"></i>
+        <span>Nature</span>
+      </div>
+      <div class="filter-item">
+        <i class="fa-solid fa-city"></i>
+        <span>City</span>
+      </div>
+      <div class="filter-item">
+        <i class="fa-solid fa-umbrella-beach"></i>
+        <span>Beach</span>
+      </div>
+      <div class="filter-item">
+        <i class="fa-solid fa-couch"></i>
+        <span>Relax</span>
+      </div>
+      <div class="filter-item">
+        <i class="fa-solid fa-bicycle"></i>
+        <span>Sports</span>
+      </div>
+      <div class="filter-item">
+        <i class="fa-solid fa-utensils"></i>
+        <span>Food</span>
+      </div>
+      <div class="filter-item">
+        <i class="fa-solid fa-moon"></i>
+        <span>Nightlife</span>
+      </div>
+      <div class="filter-item">
+        <i class="fa-solid fa-heart"></i>
+        <span>Favorites</span>
+      </div>
+      <style>
+        .tax-toggle {
+          border: 1px solid black;
+          display: flex;
+          align-items: center;
+          border-radius: 50px;
+
+
+          padding: 1rem;
+
+        }
+        .gst-text{
+          display: none;
+        }
+       
+
+      </style>
+
+      <div class="tax-toggle">
+        <div class="form-check-reverse form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+          <label class="form-check-label" for="switchCheckDefault">Price before Tax</label>
+        </div>
+      </div>
+    </div>
+
+
+   
+      <div class="listings-container">
+        <% for(let listing of listings) { %>
+          <div class="card listing" style="width: 18rem;" data-base-price="<%= listing.price %>">
+            <a href="/listings/<%= listing.id %>">
+              <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>">
+              <div class="card-img-overlay">
+                <h5 class="card-title text-white bg-dark bg-opacity-50 p-1 rounded">
+                  <i class="fa-solid fa-location-dot"></i>
+                  <%= listing.location %>
+                </h5>
+              </div>
+            </a>
+            <div class="card-body">
+              <p class="card-text">
+                <%= listing.title %><br>
+                  <b>&#8377;</b> <span class="price">
+                    <%= listing.price.toLocaleString("en-IN") %>
+                  </span>/night
+                  <span class="gst-text">+15% GST</span>
+              </p>
+            </div>
+          </div>
+
+          <% } %>
+      </div>
+
+  </body>
+
+  <script>
+  const taxToggle = document.getElementById("switchCheckDefault");
+  const gstTexts = document.getElementsByClassName("gst-text");
+
+  // Function to update GST visibility
+  function updateGSTDisplay() {
+    const isChecked = taxToggle.checked;
+    for (const info of gstTexts) {
+      info.style.display = isChecked ? "inline" : "none";
+    }
+  }
+
+  // Run once on page load (so it matches the checkbox state)
+  updateGSTDisplay();
+
+  // Run every time toggle changes
+  taxToggle.addEventListener("change", updateGSTDisplay);
+</script>

@@ -1,0 +1,28 @@
+ <div class="row mt-3 col-6 offset-3">
+  <% if(success && success.length > 0){ %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= success %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  <% } %>
+</div>
+
+ <div class="row mt-3 col-6 offset-3">
+  <% if(error && error.length > 0){ %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= error %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  <% } %>
+</div>
+
+
+ <div class="row mt-3 col-6 offset-3">
+  <% if(deletemsg && deletemsg.length > 0){ %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= deletemsg %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  <% } %>
+</div>
+

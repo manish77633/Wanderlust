@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-md bg-body-tertiary border-bottom sticky-top" data-bs-theme="light">
+  <div class="container-fluid">
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center d-none d-md-flex" href="/listings">
+      <i class="fa-regular fa-compass me-2"></i>
+      <span>Wanderlust</span>
+    </a>
+
+    <!-- Search bar (always visible) -->
+    <div class="d-flex align-items-center flex-grow-1 justify-content-center">
+      <input class="form-control me-2 search" type="search" placeholder="Find your destination" aria-label="Search">
+      <button class="btn btn-airbnb" type="submit"><i class="fa-solid fa-magnifying-glass"></i>&nbsp;Search</button>
+    </div>
+
+    <!-- Hamburger for mobile (menu items only) -->
+    <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+      aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Menu items (collapse) -->
+    <div class="collapse navbar-collapse" id="navbarMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/listings/new">Add New Listing</a>
+        </li>
+        <% if (!curuser) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/signup"><b>Sign up</b></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login"><b>Log in</b></a>
+          </li>
+        <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout"><b>Log out</b></a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
