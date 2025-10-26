@@ -14,7 +14,10 @@ const wrapAsync = require("./utils/wrap.js");
 const Review = require("./models/reviews.js");
 const {listingschema,reviewSchema} = require("./schema.js");
 const ExpressError = require("./utils/error.js");
-const dbURL=process.env.ATLASDB_URL
+const dbURL = process.env.NODE_ENV === "production"
+  ? process.env.ATLASDB_URL
+  : "mongodb://127.0.0.1:27017/wanderlust";
+
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const flash=require("connect-flash");
@@ -40,7 +43,12 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(dbURL);
+  await mongoose.connect(dbURL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 5000,
+});
+
 }
 
 app.set("view engine", "ejs");

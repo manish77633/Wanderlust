@@ -5,9 +5,12 @@ const listingschema = Joi.object({
     title: Joi.string().required(),
     description: Joi.string().required(),
     image: Joi.string().allow("", null),
-    price: Joi.number().required().min(0),
+    price: Joi.number().required().min(1),
     location: Joi.string().required(),
-    country: Joi.string().required()
+    country: Joi.string().required(),
+    category: Joi.string()
+      .valid("Trending","Adventure","Nature","City","Beach","Relax","Sports","Food","Nightlife","Favorites")
+      .required()
   }).required()
 });
 

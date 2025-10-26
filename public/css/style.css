@@ -5,11 +5,10 @@ body {
   padding: 0;
   box-sizing: border-box;
   display: flex;
-
   flex-direction: column;
   min-height: 100vh;
-  /* full screen height */
 }
+
 /* ---------- Navbar ---------- */
 nav.navbar {
   display: flex;
@@ -23,7 +22,6 @@ nav.navbar {
   z-index: 1000;
 }
 
-/* Logo */
 .navbar-brand {
   font-size: 1.8rem;
   font-weight: bold;
@@ -38,7 +36,6 @@ nav.navbar {
   margin-right: 0.4rem;
 }
 
-/* Hide only text on mobile, keep icon */
 .navbar-brand span {
   display: inline;
 }
@@ -49,7 +46,6 @@ nav.navbar {
   }
 }
 
-/* Menu items */
 .navbar-nav {
   display: flex;
   align-items: center;
@@ -70,7 +66,6 @@ nav.navbar {
   color: #0077b6;
 }
 
-
 /* Airbnb style button */
 .btn-airbnb {
   background-color: #FF385C;
@@ -89,7 +84,7 @@ nav.navbar {
 /* Search bar */
 .navbar .form-control {
   width: 40vw;
-   border-radius: 55px !important;
+  border-radius: 55px !important;
   max-width: 100%;
 }
 
@@ -100,26 +95,19 @@ nav.navbar {
   cursor: pointer;
 }
 
-/* ---------- Mobile Styles ---------- */
 @media (max-width: 768px) {
-
-  /* Center search bar */
   .navbar .d-flex.flex-grow-1 {
     flex-grow: 1;
     justify-content: center;
     gap: 5px;
   }
-
   .navbar .form-control {
     width: 60%;
     flex: 1;
   }
-
   .navbar .btn-airbnb {
     white-space: nowrap;
   }
-
-  /* Collapse menu items */
   .navbar-collapse {
     position: absolute;
     top: 60px;
@@ -132,14 +120,42 @@ nav.navbar {
   }
 }
 
-/* ----------------------filter------------------- */
-.filters-container {
+
+/* filter  */
+
+.filters-wrapper {
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
-  gap: 2.5rem;
-  padding: 1rem;
-  justify-content: left;
-  margin-top: -1rem;
+  align-items: center;
+  gap: 5px;
+  margin-top: 1.5rem;
+}
+
+.scrollable-filters {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+}
+.scrollable-filters::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.scroll-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+
+.scroll-btn i {
+  pointer-events: none;
 }
 
 .filter-item {
@@ -147,139 +163,30 @@ nav.navbar {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  cursor: pointer;
-  font-family: 'Lato', sans-serif;
-  color: #333;
-  transition: transform 0.2s ease, color 0.2s ease;
+  min-width: 70px;
 }
-
 .filter-item i {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   margin-bottom: 5px;
-  color: #777171; /* Airbnb pink-ish color for highlight */
 }
-
 .filter-item span {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
-.filter-item:hover {
-  transform: translateY(-3px);
-  color: #565656;
-}
-
-/* <!-- Toggle Switch CSS --> */
-
-.gst-toggle {
+/* ---------- GST Toggle ---------- */
+.tax-toggle {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 5px;
-  font-weight: 500;
   margin-left: 20px;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
 }
 
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 24px;
-  background-color: #ccc;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.gst-text {
+  display: none;
 }
 
-.switch::after {
-  content: '';
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  left: 2px;
-  top: 2px;
-  background-color: white;
-  border-radius: 50%;
-  transition: transform 0.3s ease;
-}
-
-#taxCheckbox:checked + .switch {
-  background-color: #FF385C; /* Airbnb pink */
-}
-
-#taxCheckbox:checked + .switch::after {
-  transform: translateX(26px);
-}
-
-
-/* ---------- Footer ---------- */
-.footer {
-  background-color: #f8f8f8;
-  padding: 20px 0;
-  font-size: 14px;
-  color: #333;
-  margin-top: auto;
-  /* push footer to bottom */
-}
-
-.footer-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.left {
-  display: flex;
-  gap: 20px;
-}
-
-.left p {
-  margin: 0;
-}
-
-footer nav {
-  display: flex;
-  gap: 20px;
-}
-
-footer nav a {
-  color: #333;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-footer nav a:hover {
-  text-decoration: underline;
-}
-
-.footer-right {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-.language,
-.currency {
-  margin-right: 10px;
-  font-weight: 600;
-}
-
-.social-icons a {
-  margin-left: 10px;
-  text-decoration: none;
-  color: #333;
-}
-
-.social-icons a:hover {
-  color: #0077b6;
-}
-
-.social-icons i {
-  font-size: 1.2rem;
-}
-
-/* ---------- Listings Grid ---------- */
+/* ---------- Listings ---------- */
 .listings-container {
   display: flex;
   flex-wrap: wrap;
@@ -287,7 +194,6 @@ footer nav a:hover {
   margin: 20px;
 }
 
-/* Card Styling */
 .card {
   flex: 1 1 100%;
   max-width: 100%;
@@ -295,13 +201,14 @@ footer nav a:hover {
   transition: transform 0.2s ease-in-out;
   border: none !important;
   position: relative;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .card img {
   width: 100%;
   height: 20rem;
   object-fit: cover;
-  border-radius: 8px;
 }
 
 .card:hover {
@@ -309,22 +216,129 @@ footer nav a:hover {
 }
 
 .card-text {
-  font-family: lato;
+  font-family: 'Lato', sans-serif;
+  font-size: clamp(0.9rem, 1vw + 0.5rem, 1.2rem);
 }
 
-/* Tablet (3 cards) */
-@media (min-width: 600px) {
+/* Responsive Cards */
+@media (min-width: 480px) and (max-width: 767px) {
+  .card {
+    flex: 1 1 calc(50% - 10px);
+    max-width: calc(50% - 10px);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
   .card {
     flex: 1 1 calc(33.333% - 13.33px);
     max-width: calc(33.333% - 13.33px);
   }
 }
 
-/* Desktop (4 cards) */
-@media (min-width: 1024px) {
+@media (min-width: 1024px) and (max-width: 1439px) {
   .card {
     flex: 1 1 calc(25% - 15px);
     max-width: calc(25% - 15px);
+  }
+}
+
+@media (min-width: 1440px) {
+  .card {
+    flex: 1 1 calc(25% - 15px);
+    max-width: calc(25% - 15px);
+  }
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  width: 100%;
+  background-color: #f8f9fa;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+.footer-container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-container .left,
+.footer-container .footer-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-container p {
+  margin: 0;
+  font-size: clamp(0.8rem, 1vw + 0.5rem, 1rem);
+  color: #333;
+}
+
+.footer-container nav a {
+  margin-right: 1rem;
+  text-decoration: none;
+  color: #333;
+  font-size: clamp(0.8rem, 1vw + 0.5rem, 1rem);
+}
+
+.footer-container nav a:last-child {
+  margin-right: 0;
+}
+
+.footer-container .footer-right span {
+  font-size: clamp(0.8rem, 1vw + 0.5rem, 1rem);
+  color: #333;
+}
+
+.footer-container .social-icons a {
+  margin-left: 0.5rem;
+  color: #333;
+  font-size: clamp(1rem, 1.2vw + 0.2rem, 1.2rem);
+}
+
+.footer-container .social-icons a:hover {
+  color: #007bff;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .footer-container .left,
+  .footer-container .footer-right {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+  .footer-container nav a {
+    margin-right: 0.5rem;
+    margin-bottom: 0.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    padding: 0 1rem;
+  }
+  .footer-container p,
+  .footer-container nav a,
+  .footer-container .footer-right span {
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
+  }
+  .footer-container .social-icons a {
+    font-size: clamp(0.9rem, 2vw, 1rem);
   }
 }
 
@@ -344,12 +358,12 @@ footer nav a:hover {
   max-width: 600px;
 }
 
-/* Optional: shadow hover */
 .listing-form:hover {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   transition: 0.3s ease-in-out;
 }
-/* ⭐ Star Rating Styling */
+
+/* ⭐ Star Rating */
 .rating-stars {
   direction: rtl;
   display: inline-flex;
@@ -367,11 +381,10 @@ footer nav a:hover {
   cursor: pointer;
   transition: transform 0.25s ease, color 0.25s ease, filter 0.25s ease, opacity 0.25s ease;
   filter: brightness(0.85);
-  transform: scale(0.85); /* Default: smaller and faint */
+  transform: scale(0.85);
   opacity: 0.5;
 }
 
-/* Hover & Active Effects */
 .rating-stars label:hover,
 .rating-stars label:hover ~ label {
   color: gold;
@@ -387,128 +400,54 @@ footer nav a:hover {
   opacity: 1;
 }
 
-/* Smooth interaction */
 .rating-stars {
   transition: all 0.25s ease-in-out;
 }
 
-/* ✅ Review Section Styling */
+/* ---------- Reviews ---------- */
 .review-section {
   width: 80%;
-  margin: 0 auto;
-  margin-bottom: 30px;
-  background: rgba(255, 255, 255, 0.8);
+  margin: 0 auto 30px auto;
+  background: rgba(255,255,255,0.8);
   backdrop-filter: blur(6px);
   border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
-  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   padding: 2rem;
-}
-/* Hover glow effect */
-.review-section:hover {
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15)!important;
+  transition: all 0.3s ease-in-out;
 }
 
-/* ✅ Responsive Design */
+.review-section:hover {
+  box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+}
+
 @media (max-width: 992px) {
-  .review-section {
-    width: 85%;
-    padding: 1.5rem;
-  }
-  .rating-stars label {
-    font-size: 1.8rem;
-  }
+  .review-section { width: 85%; padding: 1.5rem; }
+  .rating-stars label { font-size: 1.8rem; }
 }
 
 @media (max-width: 768px) {
-  .review-section {
-    width: 90%;
-  }
-  .rating-stars label {
-    font-size: 1.6rem;
-  }
-  textarea.form-control {
-    font-size: 0.95rem;
-  }
+  .review-section { width: 90%; }
+  .rating-stars label { font-size: 1.6rem; }
+  textarea.form-control { font-size: 0.95rem; }
 }
 
 @media (max-width: 480px) {
-  .review-section {
-    width: 95%;
-    padding: 1rem;
-  } 
+  .review-section { width: 95%; padding: 1rem; }
 }
 
+/* Review Cards */
+.reviews-display { width: 70%; margin: 0 auto; }
+.review-card-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+.review-card { width: 48%; background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); text-align: left; font-size: 15px; line-height: 1.5; transition: transform 0.2s, box-shadow 0.2s; }
+.review-card:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
+.review-author { font-weight: 600; color: #0d6efd; margin-bottom: 8px; font-size: 16px; }
+.review-rating { color: #ffb400; font-size: 16px; margin-bottom: 10px; }
+.review-comment { color: #333; margin-bottom: 10px; font-size: 15px; }
+.review-date { color: #999; font-size: 13px; }
 
-/* Container for reviews, center and 70% width */
-.reviews-display {
-  width: 70%;
-  margin: 0 auto;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+@media (max-width: 768px) { .review-card { width: 100% !important; } }
 
-/* Flex container to wrap reviews */
-.review-card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
-
-/* Individual review card styling */
-.review-card {
-  width: 48%;
-  background-color: #ffffff;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  text-align: left;
-  transition: transform 0.2s, box-shadow 0.2s;
-  font-size: 15px;
-  line-height: 1.5;
-}
-
-.review-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-}
-
-/* Author name */
-.review-author {
-  font-weight: 600;
-  color: #0d6efd; /* Bootstrap primary color */
-  margin-bottom: 8px;
-  font-size: 16px;
-}
-
-/* Rating stars */
-.review-rating {
-  color: #ffb400; /* golden stars */
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
-/* Comment text */
-.review-comment {
-  color: #333333;
-  margin-bottom: 10px;
-  font-size: 15px;
-}
-
-/* Review date */
-.review-date {
-  color: #999999;
-  font-size: 13px;
-}
-
-/* Responsive: mobile devices */
-@media (max-width: 768px) {
-  .review-card {
-    width: 100% !important;
-  }
-}
-
-/* Signup page specific card fix */
+/* Signup Page */
 .signup-card {
   width: 30% !important;
   max-width: 600px;
@@ -516,11 +455,35 @@ footer nav a:hover {
   margin-bottom: -27px;
   flex: none !important;
 }
-@media (max-width: 768px) {
-  .signup-card {
-    width: 90% !important;
+@media (max-width: 768px) { .signup-card { width: 90% !important; } }
+
+.text-center { padding-bottom: 2rem; }
+
+
+
+/* Navbar mobile tweak: search + toggle on same line */
+@media (max-width: 767px) {
+  nav.navbar .container-fluid {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 5px;
+  }
+
+  nav.navbar form.d-flex {
+    flex: 1 1 auto;
+    display: flex;
+    gap: 5px;
+  }
+
+  nav.navbar .navbar-toggler {
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+
+  /* Reduce search width a bit on mobile */
+  nav.navbar .form-control.search {
+    width: 100%;
   }
 }
-.text-center{
-  padding-bottom: 2rem;
-}
+

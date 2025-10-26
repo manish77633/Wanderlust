@@ -13,6 +13,7 @@ const listingSchema = new Schema({
     filename:String
   },
   price: Number,
+  
   location: String,
   lat:{
     type:Number,
@@ -23,6 +24,11 @@ const listingSchema = new Schema({
     // default:77.2088
   },
   country: String,
+  category: {
+        type: String,
+        enum: ["Trending","Adventure","Nature","City","Beach","Relax","Sports","Food","Nightlife","Favorites"],
+        required: true
+    },
   reviews: [
     {
       type: Schema.Types.ObjectId,

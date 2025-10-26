@@ -1,110 +1,77 @@
 <% layout("layouts/boilerplate") %>
 
-  <body>
+<body>
 
-    <div class="catagory">
-       <div class="filters-container">
-      <div class="filter-item">
-        <i class="fa-solid fa-fire"></i>
-        <span>Trending</span>
-      </div>
-      <div class="filter-item">
-        <i class="fa-solid fa-mountain"></i>
-        <span>Adventure</span>
-      </div>
-      <div class="filter-item">
-        <i class="fa-solid fa-tree"></i>
-        <span>Nature</span>
-      </div>
-      <div class="filter-item">
-        <i class="fa-solid fa-city"></i>
-        <span>City</span>
-      </div>
-      <div class="filter-item">
-        <i class="fa-solid fa-umbrella-beach"></i>
-        <span>Beach</span>
-      </div>
-      <div class="filter-item">
-        <i class="fa-solid fa-couch"></i>
-        <span>Relax</span>
-      </div>
-      <div class="filter-item">
-        <i class="fa-solid fa-bicycle"></i>
-        <span>Sports</span>
-      </div>
-      <div class="filter-item">
-        <i class="fa-solid fa-utensils"></i>
-        <span>Food</span>
-      </div>
-      <div class="filter-item">
-        <i class="fa-solid fa-moon"></i>
-        <span>Nightlife</span>
-      </div>
-      <div class="filter-item">
-        <i class="fa-solid fa-heart"></i>
-        <span>Favorites</span>
-      </div>
-      <style>
-        .tax-toggle {
-          border: 1px solid black;
-          display: flex;
-          align-items: center;
-          border-radius: 50px;
+  <!-- Category Heading -->
+  <div class="category-heading">
+    <h3>Explore Categories</h3>
+  </div>
 
+  <!-- Filters Wrapper with Arrows -->
+  <div class="filters-wrapper">
+    <button class="scroll-btn left-btn">&#8249;</button>
+    <div class="filters-container scrollable-filters">
+      <% const allFilters = [
+           {icon: "fa-fire", name: "Trending"},
+           {icon: "fa-mountain", name: "Adventure"},
+           {icon: "fa-tree", name: "Nature"},
+           {icon: "fa-city", name: "City"},
+           {icon: "fa-umbrella-beach", name: "Beach"},
+           {icon: "fa-couch", name: "Relax"},
+           {icon: "fa-bicycle", name: "Sports"},
+           {icon: "fa-utensils", name: "Food"},
+           {icon: "fa-moon", name: "Nightlife"},
+           {icon: "fa-heart", name: "Favorites"}
+         ];
+      %>
 
-          padding: 1rem;
+      <% allFilters.forEach(filter => { %>
+        <div class="filter-item">
+          <i class="fa-solid <%= filter.icon %>"></i>
+          <span><%= filter.name %></span>
+        </div>
+      <% }) %>
+    </div>
+    <button class="scroll-btn right-btn">&#8250;</button>
+  </div>
 
-        }
-        .gst-text{
-          display: none;
-        }
-       
+  <!-- GST Toggle -->
+  <div class="tax-toggle">
+    <div class="form-check-reverse form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+      <label class="form-check-label" for="switchCheckDefault">Price before Tax</label>
+    </div>
+  </div>
 
-      </style>
-
-      <div class="tax-toggle">
-        <div class="form-check-reverse form-switch">
-          <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-          <label class="form-check-label" for="switchCheckDefault">Price before Tax</label>
+  <!-- Listings -->
+  <div class="listings-container">
+    <% for(let listing of listings) { %>
+      <div class="card listing" data-base-price="<%= listing.price %>">
+        <a href="/listings/<%= listing.id %>">
+          <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>">
+          <div class="card-img-overlay">
+            <h5 class="card-title text-white bg-dark bg-opacity-50 p-1 rounded">
+              <i class="fa-solid fa-location-dot"></i>
+              <%= listing.location %>
+            </h5>
+          </div>
+        </a>
+        <div class="card-body">
+          <p class="card-text">
+            <%= listing.title %><br>
+            <b>&#8377;</b> <span class="price"><%= listing.price.toLocaleString("en-IN") %></span>/night
+            <span class="gst-text">+15% GST</span>
+          </p>
         </div>
       </div>
-    </div>
-
-
-   
-      <div class="listings-container">
-        <% for(let listing of listings) { %>
-          <div class="card listing" style="width: 18rem;" data-base-price="<%= listing.price %>">
-            <a href="/listings/<%= listing.id %>">
-              <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>">
-              <div class="card-img-overlay">
-                <h5 class="card-title text-white bg-dark bg-opacity-50 p-1 rounded">
-                  <i class="fa-solid fa-location-dot"></i>
-                  <%= listing.location %>
-                </h5>
-              </div>
-            </a>
-            <div class="card-body">
-              <p class="card-text">
-                <%= listing.title %><br>
-                  <b>&#8377;</b> <span class="price">
-                    <%= listing.price.toLocaleString("en-IN") %>
-                  </span>/night
-                  <span class="gst-text">+15% GST</span>
-              </p>
-            </div>
-          </div>
-
-          <% } %>
-      </div>
-
-  </body>
+    <% } %>
+  </div>
 
   <script>
+  // ===== GST Toggle =====
   const taxToggle = document.getElementById("switchCheckDefault");
   const gstTexts = document.getElementsByClassName("gst-text");
 
-  // Function to update GST visibility
   function updateGSTDisplay() {
     const isChecked = taxToggle.checked;
     for (const info of gstTexts) {
@@ -112,9 +79,48 @@
     }
   }
 
-  // Run once on page load (so it matches the checkbox state)
   updateGSTDisplay();
-
-  // Run every time toggle changes
   taxToggle.addEventListener("change", updateGSTDisplay);
+
+  // ===== Scrollable Filters =====
+  const filters = document.querySelector(".scrollable-filters");
+  const leftBtn = document.querySelector(".left-btn");
+  const rightBtn = document.querySelector(".right-btn");
+
+  function updateArrowVisibility() {
+    if (filters.scrollWidth > filters.clientWidth) {
+      leftBtn.style.display = "flex";
+      rightBtn.style.display = "flex";
+    } else {
+      leftBtn.style.display = "none";
+      rightBtn.style.display = "none";
+    }
+  }
+
+  // Initial check
+  updateArrowVisibility();
+  window.addEventListener("resize", updateArrowVisibility);
+
+  leftBtn.addEventListener("click", () => {
+    filters.scrollBy({ left: -200, behavior: "smooth" });
+  });
+  rightBtn.addEventListener("click", () => {
+    filters.scrollBy({ left: 200, behavior: "smooth" });
+  });
+
+  // ===== Category Filter Click =====
+  const filterItems = document.querySelectorAll(".filter-item");
+
+  filterItems.forEach(item => {
+    item.addEventListener("click", () => {
+      const category = item.textContent.trim(); // get filter name
+
+      // Redirect with category query param (future backend filter)
+      let url = new URL(window.location.href);
+      url.searchParams.set("category", category);
+      window.location.href = url.toString();
+    });
+  });
 </script>
+
+</body>
