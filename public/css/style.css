@@ -470,6 +470,12 @@ nav.navbar {
     gap: 5px;
   }
 
+  /* Search text ko hide karein jab screen width 1170px ya usse kam ho */
+@media (max-width: 1170px) {
+    .search-btn .search-text-desktop {
+        display: none ;
+    }
+}
   nav.navbar form.d-flex {
     flex: 1 1 auto;
     display: flex;

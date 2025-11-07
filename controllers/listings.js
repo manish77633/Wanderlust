@@ -163,6 +163,7 @@ module.exports.updateListing = async (req, res, next) => {
   listing.price = req.body.listing.price;
   listing.location = req.body.listing.location;
   listing.country = req.body.listing.country;
+  listing.category = req.body.listing.category;
 
   if (req.file) {
     const url = req.file.path;

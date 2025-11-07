@@ -1,12 +1,10 @@
 <nav class="navbar navbar-expand-md bg-body-tertiary border-bottom sticky-top" data-bs-theme="light">
   <div class="container-fluid">
-    <!-- Logo -->
-    <a class="navbar-brand d-none d-md-flex align-items-center" href="/listings">
+    <a class="navbar-brand d-flex align-items-center" href="/listings">
       <i class="fa-regular fa-compass me-2"></i>
       <span>Wanderlust</span>
     </a>
 
-    <!-- Search bar (always visible) -->
     <form action="/listings" method="GET" class="d-flex align-items-center flex-grow-1">
       <input 
         class="form-control me-2 search" 
@@ -16,18 +14,16 @@
         aria-label="Search"
         value="<%= typeof q !== 'undefined' ? q : '' %>"
       >
-      <button class="btn btn-airbnb me-2" type="submit">
-        <i class="fa-solid fa-magnifying-glass"></i>&nbsp;Search
+      <button class="btn btn-airbnb me-2 search-btn" type="submit">
+        <i class="fa-solid fa-magnifying-glass"></i><span class="search-text-desktop">&nbsp;Search</span>
       </button>
     </form>
 
-    <!-- Hamburger for mobile -->
     <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
       aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Menu items (collapse) -->
     <div class="collapse navbar-collapse" id="navbarMenu">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
