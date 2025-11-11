@@ -1,39 +1,43 @@
+const express = require("express");
+const router = express.Router();
+const passport = require("passport");
+const multer = require("multer");
 
-const express=require("express")
-const router=express.Router();
-const User=require("../models/user.js");
+const User = require("../models/user.js");
 const wrapAsync = require("../utils/wrap");
-const passport = require("passport"); 
-const { saveRedirectUrl}=require("../middleware.js")  
-const userController=require("../controllers/users.js") 
+const { saveRedirectUrl } = require("../middleware.js");
+const userController = require("../controllers/users.js");
+const { userStorage } = require("../cloudConfig.js");
 
+// ✅ Multer setup for Cloudinary
+const upload = multer({ storage: userStorage });
 
-//signup form
-router.get("/signup",userController.renderSignupForm)
+// ✅ Signup form
+router.get("/signup", userController.renderSignupForm);
 
-//siginup
+// ✅ Signup route (with profile image upload)
 router.post(
   "/signup",
-  saveRedirectUrl, // 👈 ye line add kar
+  upload.single("profileImage"), // 👈 Handle single image upload
+  saveRedirectUrl,
   wrapAsync(userController.signup)
 );
 
+// ✅ Render login form
+router.get("/login", userController.renderLoginForm);
 
+// ✅ Login
+router.post(
+  "/login",
+  saveRedirectUrl,
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: true,
+  }),
+  userController.login
+);
 
-//render login form
-router.get("/login",userController.renderLoginForm)
+// ✅ Logout
+router.get("/logout", userController.logout);
 
-//login
-router.post("/login",
-     saveRedirectUrl,
-      passport.authenticate("local",{
-        failureRedirect:"/login",
-        failureFlash:true
-    }),
-    userController.login  )
-
-
-//logout
-router.get("/logout",userController.logout)
-
-module.exports=router;
+module.exports = router;

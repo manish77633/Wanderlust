@@ -10,14 +10,31 @@
         Create your account and unlock curated journeys ✦
       </p>
 
-      <form action="/signup" method="POST" class="needs-validation" novalidate>
-        
+      <!-- ✅ enctype added for Cloudinary image upload -->
+      <form action="/signup" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+
+        <!-- ✅ Profile Image Upload -->
+        <div class="mb-4 text-center">
+          <label for="profileImage" class="form-label fw-semibold">Profile Picture</label>
+          <div class="d-flex flex-column align-items-center">
+            <img id="previewImg" 
+                 src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
+                 alt="Profile Preview"
+                 class="rounded-circle mb-2 shadow-sm"
+                 style="width: 100px; height: 100px; object-fit: cover; border: 2px solid #ddd;">
+            
+            <input type="file" id="profileImage" name="profileImage" 
+                   accept="image/*" class="form-control w-75 mt-2"
+                   onchange="previewFile()">
+            <div class="form-text text-muted">Optional — you can add later too.</div>
+          </div>
+        </div>
+
         <!-- Username -->
         <div class="mb-3">
           <label for="username" class="form-label">Username</label>
           <input type="text" id="username" name="username" class="form-control"
                  placeholder="e.g. manish" required maxlength="30">
-          <div class="valid-feedback">Looks good!</div>
           <div class="invalid-feedback">Please provide a username!</div>
         </div>
 
@@ -41,8 +58,8 @@
         </div>
 
         <!-- Submit Button -->
-        <div class="d-grid">
-          <button type="submit" class="btn btn-success">Create Account</button>
+        <div class="d-grid mt-4">
+          <button type="submit" class="btn btn-success fw-semibold">Create Account</button>
         </div>
 
         <p class="text-center mt-3 mb-0 text-muted">
@@ -52,3 +69,27 @@
     </div>
   </div>
 </div>
+
+<!-- ✅ JS for Image Preview + Password Toggle -->
+<script>
+  document.getElementById('togglePassword').addEventListener('click', function () {
+    const passwordField = document.getElementById('password');
+    if (passwordField.type === 'password') {
+      passwordField.type = 'text';
+      this.textContent = 'Hide';
+    } else {
+      passwordField.type = 'password';
+      this.textContent = 'Show';
+    }
+  });
+
+  function previewFile() {
+    const preview = document.getElementById('previewImg');
+    const file = document.getElementById('profileImage').files[0];
+    const reader = new FileReader();
+    reader.addEventListener("load", function () {
+      preview.src = reader.result;
+    }, false);
+    if (file) reader.readAsDataURL(file);
+  }
+</script>

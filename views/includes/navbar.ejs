@@ -1,50 +1,67 @@
 <nav class="navbar navbar-expand-md bg-body-tertiary border-bottom sticky-top" data-bs-theme="light">
-  <div class="container-fluid">
-    <a class="navbar-brand d-flex align-items-center" href="/listings">
-      <i class="fa-regular fa-compass me-2"></i>
-      <span>Wanderlust</span>
-    </a>
+    <div class="container-fluid">
 
-    <form action="/listings" method="GET" class="d-flex align-items-center flex-grow-1">
-      <input 
-        class="form-control me-2 search" 
-        type="search" 
-        name="q"
-        placeholder="Find your destination" 
-        aria-label="Search"
-        value="<%= typeof q !== 'undefined' ? q : '' %>"
-      >
-      <button class="btn btn-airbnb me-2 search-btn" type="submit">
-        <i class="fa-solid fa-magnifying-glass"></i><span class="search-text-desktop">&nbsp;Search</span>
-      </button>
-    </form>
+        <div class="navbar-top d-flex align-items-center justify-content-between w-100">
 
-    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
-      aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+            <div class="d-flex align-items-center">
+                <a class="navbar-brand d-flex align-items-center me-2" href="/listings">
+                    <i class="fa-regular fa-compass me-2"></i>
+                    <span>Wanderlust</span>
+                </a>
 
-    <div class="collapse navbar-collapse" id="navbarMenu">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/listings">Explore</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/listings/new">Add New Listing</a>
-        </li>
-        <% if (!curuser) { %>
-          <li class="nav-item">
-            <a class="nav-link" href="/signup"><b>Sign up</b></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/login"><b>Log in</b></a>
-          </li>
-        <% } else { %>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout"><b>Log out</b></a>
-          </li>
-        <% } %>
-      </ul>
+                <ul class="navbar-nav d-none d-md-flex flex-row me-2"> 
+                    <li class="nav-item me-2">
+                        <a class="nav-link" href="/listings">All Properties</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/listings/new">Add New Property</a>
+                    </li>
+                </ul>
+            </div>
+
+            <form action="/listings" method="GET" class="d-flex align-items-center mx-2 flex-grow-1 search-form" style="max-width: 400px;">
+                <input class="form-control search" type="search" name="q" placeholder="Enter City, Country..." aria-label="Search"
+                    value="<%= typeof q !== 'undefined' ? q : '' %>">
+                <button class="btn btn-airbnb search-btn" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+
+            <div class="profile-auth d-flex align-items-center">
+                <% if (curuser) { %>
+                    <div class="dropdown text-end">
+                        <a style="color: black;" class="d-flex align-items-center text-decoration-none justify-content-end" href="#" id="profileDropdown"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img
+                                src="<%= curuser.profileImage && curuser.profileImage.url ? curuser.profileImage.url : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' %>"
+                                alt="Profile" class="rounded-circle me-2" style="width:35px; height:35px; object-fit:cover;">
+                            <span class="d-none d-md-inline">
+                                <%= curuser.username %>
+                            </span>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li class="d-md-none"><a class="dropdown-item" href="/listings">All Properties</a></li>
+                            <li class="d-md-none"><a class="dropdown-item" href="/listings/new">Add New Property</a></li>
+                            <li class="d-md-none"><hr class="dropdown-divider"></li>
+                            
+                            <li><a class="dropdown-item" href="/user/edit">Edit Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/user/property">My Property</a></li>
+                            <li><a class="dropdown-item" href="/user/bookedproperty">Booked Property</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        </ul>
+                    </div>
+                <% } else { %>
+                    <div class="ms-3">
+                        <a href="/login" class="btn btn-outline-dark me-2 px-3 py-1">Login</a>
+                        <a href="/signup" class="btn btn-danger me-2 px-3 py-1">Signup</a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+
     </div>
-  </div>
 </nav>

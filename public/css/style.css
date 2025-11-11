@@ -1,128 +1,53 @@
-/* ---------- General ---------- */
-body {
-  font-family: 'Lato', sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+@media (max-width: 550px) {
+
+    /* Outer container (nav tag ka content) */
+    .container-fluid {
+        /* Already flex, just ensure space-between works */
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center;
+        justify-content: space-between; /* Important for alignment */
+        gap: 5px;
+    }
+
+    /* Fixed the overall structure for mobile */
+    .navbar-top {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between; /* Space between logo group and profile group */
+        align-items: center;
+        width: 100%;
+        gap: 5px;
+    }
+    
+    /* Hide the brand text */
+    .navbar-brand span {
+        display: none !important;
+    }
+
+    /* Hide the 'All Properties' and 'Add New Property' links */
+    /* Yeh woh div hai jismein logo ke saath links hain */
+    .navbar-top > div:first-child { 
+        display: flex; /* Maintain logo/brand visibility */
+        align-items: center;
+        flex-shrink: 0;
+    }
+    .navbar-top .navbar-nav {
+        display: none !important; /* In links ko mobile mein hide karo */
+    }
+
+    /* Make search bar take center space */
+    .navbar-top form {
+        flex-grow: 1; /* Search bar ko center mein expand hone do */
+        margin: 0 5px;
+    }
+    
+    /* Profile/Auth Buttons should stay on the far right */
+    .profile-auth {
+        flex-shrink: 0;
+    }
 }
-
-/* ---------- Navbar ---------- */
-nav.navbar {
-  display: flex;
-  align-items: center;
-  padding: 1rem 1rem;
-  background-color: #ffffff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  font-family: 'Lato', sans-serif;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.navbar-brand {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #0077b6;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-}
-
-.navbar-brand i {
-  font-size: 1.5rem;
-  margin-right: 0.4rem;
-}
-
-.navbar-brand span {
-  display: inline;
-}
-
-@media (max-width: 768px) {
-  .navbar-brand span {
-    display: none;
-  }
-}
-
-.navbar-nav {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  gap: 1rem;
-}
-
-.navbar-nav li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  transition: color 0.2s ease-in-out;
-}
-
-.navbar-nav li a:hover {
-  color: #0077b6;
-}
-
-/* Airbnb style button */
-.btn-airbnb {
-  background-color: #FF385C;
-  color: white;
-  border: none;
-  font-weight: 500;
-  padding: 0.375rem 0.75rem;
-  border-radius: 55px !important;
-  transition: background 0.2s ease-in-out;
-}
-
-.btn-airbnb:hover {
-  background-color: #e32b4b;
-}
-
-/* Search bar */
-.navbar .form-control {
-  width: 40vw;
-  border-radius: 55px !important;
-  max-width: 100%;
-}
-
-/* Mobile Hamburger */
-.navbar-toggler {
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-
-@media (max-width: 768px) {
-  .navbar .d-flex.flex-grow-1 {
-    flex-grow: 1;
-    justify-content: center;
-    gap: 5px;
-  }
-  .navbar .form-control {
-    width: 60%;
-    flex: 1;
-  }
-  .navbar .btn-airbnb {
-    white-space: nowrap;
-  }
-  .navbar-collapse {
-    position: absolute;
-    top: 60px;
-    right: 0;
-    width: 220px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    padding: 10px;
-    border-radius: 5px;
-  }
-}
-
-
-/* filter  */
-
+/* ---------- Filters ---------- */
 .filters-wrapper {
   position: relative;
   display: flex;
@@ -135,10 +60,11 @@ nav.navbar {
   display: flex;
   gap: 2rem;
   overflow-x: auto;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none;
 }
+
 .scrollable-filters::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
+  display: none;
 }
 
 .scroll-btn {
@@ -165,10 +91,12 @@ nav.navbar {
   text-align: center;
   min-width: 70px;
 }
+
 .filter-item i {
   font-size: 1.3rem;
   margin-bottom: 5px;
 }
+
 .filter-item span {
   font-size: 0.85rem;
 }
@@ -316,12 +244,14 @@ nav.navbar {
     align-items: flex-start;
     gap: 0.5rem;
   }
+
   .footer-container .left,
   .footer-container .footer-right {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.3rem;
   }
+
   .footer-container nav a {
     margin-right: 0.5rem;
     margin-bottom: 0.2rem;
@@ -332,11 +262,13 @@ nav.navbar {
   .footer-container {
     padding: 0 1rem;
   }
+
   .footer-container p,
   .footer-container nav a,
   .footer-container .footer-right span {
     font-size: clamp(0.7rem, 2vw, 0.9rem);
   }
+
   .footer-container .social-icons a {
     font-size: clamp(0.9rem, 2vw, 1rem);
   }
@@ -386,14 +318,14 @@ nav.navbar {
 }
 
 .rating-stars label:hover,
-.rating-stars label:hover ~ label {
+.rating-stars label:hover~label {
   color: gold;
   transform: scale(1.2);
   filter: brightness(1.1);
   opacity: 1;
 }
 
-.rating-stars input:checked ~ label {
+.rating-stars input:checked~label {
   color: gold;
   transform: scale(1.2);
   filter: brightness(1.1);
@@ -408,44 +340,109 @@ nav.navbar {
 .review-section {
   width: 80%;
   margin: 0 auto 30px auto;
-  background: rgba(255,255,255,0.8);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(6px);
   border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   padding: 2rem;
   transition: all 0.3s ease-in-out;
 }
 
 .review-section:hover {
-  box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
 }
 
 @media (max-width: 992px) {
-  .review-section { width: 85%; padding: 1.5rem; }
-  .rating-stars label { font-size: 1.8rem; }
+  .review-section {
+    width: 85%;
+    padding: 1.5rem;
+  }
+
+  .rating-stars label {
+    font-size: 1.8rem;
+  }
 }
 
 @media (max-width: 768px) {
-  .review-section { width: 90%; }
-  .rating-stars label { font-size: 1.6rem; }
-  textarea.form-control { font-size: 0.95rem; }
+  .review-section {
+    width: 90%;
+  }
+
+  .rating-stars label {
+    font-size: 1.6rem;
+  }
+
+  textarea.form-control {
+    font-size: 0.95rem;
+  }
 }
 
 @media (max-width: 480px) {
-  .review-section { width: 95%; padding: 1rem; }
+  .review-section {
+    width: 95%;
+    padding: 1rem;
+  }
 }
 
 /* Review Cards */
-.reviews-display { width: 70%; margin: 0 auto; }
-.review-card-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-.review-card { width: 48%; background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); text-align: left; font-size: 15px; line-height: 1.5; transition: transform 0.2s, box-shadow 0.2s; }
-.review-card:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
-.review-author { font-weight: 600; color: #0d6efd; margin-bottom: 8px; font-size: 16px; }
-.review-rating { color: #ffb400; font-size: 16px; margin-bottom: 10px; }
-.review-comment { color: #333; margin-bottom: 10px; font-size: 15px; }
-.review-date { color: #999; font-size: 13px; }
+.reviews-display {
+  width: 70%;
+  margin: 0 auto;
+}
 
-@media (max-width: 768px) { .review-card { width: 100% !important; } }
+.review-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.review-card {
+  width: 48%;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  font-size: 15px;
+  line-height: 1.5;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.review-author {
+  font-weight: 600;
+  color: #0d6efd;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.review-rating {
+  color: #ffb400;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.review-comment {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.review-date {
+  color: #999;
+  font-size: 13px;
+}
+
+@media (max-width: 768px) {
+  .review-card {
+    width: 100% !important;
+  }
+}
 
 /* Signup Page */
 .signup-card {
@@ -455,41 +452,13 @@ nav.navbar {
   margin-bottom: -27px;
   flex: none !important;
 }
-@media (max-width: 768px) { .signup-card { width: 90% !important; } }
 
-.text-center { padding-bottom: 2rem; }
-
-
-
-/* Navbar mobile tweak: search + toggle on same line */
-@media (max-width: 767px) {
-  nav.navbar .container-fluid {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    gap: 5px;
-  }
-
-  /* Search text ko hide karein jab screen width 1170px ya usse kam ho */
-@media (max-width: 1170px) {
-    .search-btn .search-text-desktop {
-        display: none ;
-    }
-}
-  nav.navbar form.d-flex {
-    flex: 1 1 auto;
-    display: flex;
-    gap: 5px;
-  }
-
-  nav.navbar .navbar-toggler {
-    flex: 0 0 auto;
-    margin-left: auto;
-  }
-
-  /* Reduce search width a bit on mobile */
-  nav.navbar .form-control.search {
-    width: 100%;
+@media (max-width: 768px) {
+  .signup-card {
+    width: 90% !important;
   }
 }
 
+.text-center {
+  padding-bottom: 2rem;
+}

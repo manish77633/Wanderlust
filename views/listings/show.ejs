@@ -18,6 +18,7 @@
           <h4 class="text-success mb-3">&#8377; <%= listing.price.toLocaleString("en-IN") %></h4>
           <p><b>Location:</b> <%= listing.location %></p>
           <p><b>Country:</b> <%= listing.country %></p>
+          <p><b>Contact:</b> 797646xxxx</p>
         </div>
 
         <% if(curuser && listing.owner && curuser._id.equals(listing.owner._id)) { %>
