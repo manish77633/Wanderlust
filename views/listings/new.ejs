@@ -34,7 +34,14 @@
 
         <div class="mb-4">
           <label for="image" class="form-label">Choose Image</label>
-          <input required type="file" id="image" name="listing[image]" class="form-control" accept="image/*">
+          <input required 
+                type="file" 
+                id="image" 
+                name="listing[image]" 
+                class="form-control" 
+                
+                accept="image/jpeg, image/png, image/jpg, image/*"
+                capture="environment">
           <div class="valid-feedback">Image looks good</div>
           <div class="invalid-feedback">Please upload an image!</div>
         </div>
