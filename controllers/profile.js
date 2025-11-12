@@ -111,7 +111,7 @@ module.exports.renderBookedProperties = async (req, res) => {
     // Ensure 'bookings' is always an array for safety in EJS
     const userBookings = user.bookings || [];
 
-    res.render("users/bookedProperties", { user, bookings: userBookings });
+    res.render("users/bookedproperties", { user, bookings: userBookings });
   } catch (err) {
     console.error("Error loading booked properties:", err);
     req.flash("error", "Unable to load booked properties!");
