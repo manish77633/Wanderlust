@@ -1,93 +1,98 @@
 <% layout("layouts/boilerplate") %>
 
-  <div class="container my-5">
-    <h1 class="text-center mb-4">Edit Your Listing</h1>
-    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate
-      class="listing-form mx-auto p-4 rounded shadow bg-light needs-validation" enctype="multipart/form-data">
-
-      <!-- Title -->
-      <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input name="listing[title]" id="title" type="text" class="form-control " value="<%= listing.title %>" required>
-        <div class="valid-feedback">
-          Title Looks good!
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      
+      <div class="listing-form-header text-center modern-card-header rounded-top-4 mx-auto p-3">
+        <h2 class="fw-bold mb-1">Edit Your Property</h2>
+        <p class="text-secondary small mb-0">Update your property details ✍️</p>
+      </div>
+      
+      <form 
+        method="POST" 
+        action="/listings/<%= listing._id %>?_method=PUT" 
+        novalidate
+        class="listing-form mx-auto p-4 rounded-bottom-4 shadow needs-validation bg-white" 
+        enctype="multipart/form-data">
+        
+        <div class="mb-4">
+          <label for="title" class="form-label">Title</label>
+          <input name="listing[title]" id="title" type="text" class="form-control" value="<%= listing.title %>" required>
+          <div class="valid-feedback">Title Looks good!</div>
+          <div class="invalid-feedback">Please provide a Title!</div>
         </div>
-        <div class="invalid-feedback">Please provide a Title!</div>
 
-      </div>
+        <div class="mb-4">
+          <label for="description" class="form-label">Description</label>
+          <textarea name="listing[description]" id="description" class="form-control" rows="4"
+            required><%= listing.description %></textarea>
+          <div class="invalid-feedback">Please enter a short description!</div>
+        </div>
 
+        <div class="mb-4">
+          <label class="form-label d-block">Original Image</label>
+          <img class="img-fluid rounded border p-1" 
+               style="max-width: 200px; max-height: 150px; object-fit: cover;" 
+               src="<%=originalImageUrl %>" alt="Original Listing Image">
+        </div>
 
-      <!-- Description -->
-      <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea name="listing[description]" id="description" class="form-control" rows="4"
-          required><%= listing.description %></textarea>
-        <div class="invalid-feedback">Please enter a short description!</div>
+        <div class="mb-4">
+          <label for="image" class="form-label">Choose New Image</label>
+          <input name="listing[image]" id="image" type="file" class="form-control">
+        </div>
 
-      </div>
+        <div class="row mb-4">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <label for="price" class="form-label">Price</label>
+            <input name="listing[price]" id="price" type="number" class="form-control" value="<%= listing.price %>"
+              required>
+            <div class="invalid-feedback">Price should be valid!</div>
+          </div>
+          <div class="col-md-6">
+            <label for="location" class="form-label">Location</label>
+            <input name="listing[location]" id="location" type="text" class="form-control" value="<%= listing.location %>"
+              required>
+            <div class="invalid-feedback">Location should be valid!</div>
+          </div>
+        </div>
 
-      <div class="mb-3">
-        Original Image <br>
-        <img style="width: 250px;height: 200px;" src="<%=originalImageUrl %>" alt="">
-      </div>
-
-      <!-- Image file -->
-      <div class="mb-3">
-        <label for="image" class="form-label">Choose Image</label>
-        <input name="listing[image]" id="image" type="file" class="form-control" value="<%= listing.image %>">
-
-      </div>
-
-      <!-- Price & Location in one row -->
-      <div class="row mb-3">
-        <div class="col-md-6 mb-3 mb-md-0">
-          <label for="price" class="form-label">Price</label>
-          <input name="listing[price]" id="price" type="number" class="form-control" value="<%= listing.price %>"
+        <div class="mb-4">
+          <label for="country" class="form-label">Country</label>
+          <input name="listing[country]" id="country" type="text" class="form-control" value="<%= listing.country %>"
             required>
-          <div class="invalid-feedback">Price should be valid!</div>
+          <div class="invalid-feedback">Country should be valid!</div>
         </div>
-        <div class="col-md-6">
-          <label for="location" class="form-label">Location</label>
-          <input name="listing[location]" id="location" type="text" class="form-control" value="<%= listing.location %>"
-            required>
-          <div class="invalid-feedback">Location should be valid!</div>
-        </div>
-      </div>
 
-      <!-- Country -->
-      <div class="mb-3">
-        <label for="country" class="form-label">Country</label>
-        <input name="listing[country]" id="country" type="text" class="form-control" value="<%= listing.country %>"
-          required>
-        <div class="invalid-feedback">Country should be valid!</div>
-
-      </div>
-
-      <!-- Category -->
-      <div class="mb-3">
-        <label for="category" class="form-label">Category</label>
-        <select id="category" name="listing[category]" class="form-control" required>
-
-          <option value="" <%=listing.category==="" ? 'selected' : '' %>>Select Category</option>
-
-          <% const categories=["Trending", "Adventure" , "Nature" , "City" , "Beach" , "Relax" , "Sports" , "Food"
-            , "Nightlife" , "Favorites" ]; %>
+        <div class="mb-5">
+          <label for="category" class="form-label">Category</label>
+          <select id="category" name="listing[category]" class="form-select" required>
+            <option value="" <%=listing.category==="" ? 'selected' : '' %>>Select Category</option>
+            
+            <% const categories=["Trending", "Adventure" , "Nature" , "City" , "Beach" , "Relax" , "Sports" , "Food"
+              , "Nightlife" , "Favorites" ]; %>
 
             <% categories.forEach(cat=> { %>
-              <option value="<%= cat %>" <%=listing.category===cat ? 'selected' : '' %>
-                >
-                <%= cat %>
-              </option>
-              <% }) %>
-        </select>
-        <div class="invalid-feedback">Please select a category!</div>
-      </div>
+            <option value="<%= cat %>" <%=listing.category===cat ? 'selected' : '' %>>
+              <%= cat %>
+            </option>
+            <% }) %>
+          </select>
+          <div class="invalid-feedback">Please select a category!</div>
+        </div>
 
 
-      <!-- Submit Button -->
-      <div class="text-center">
-        <button type="submit" class="btn btn-primary btn-lg">Update Listing</button>
-      </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-airbnb px-5 py-3 fw-bold w-100">
+            <i class="fa-solid fa-cloud-arrow-up me-2"></i> Update Listing
+          </button>
+        </div>
+        
+        <div class="text-center mt-3">
+          <a href="/listings/<%= listing._id %>" class="text-decoration-none text-secondary">← Back to Listing</a>
+        </div>
 
-    </form>
+      </form>
+    </div>
   </div>
+</div>

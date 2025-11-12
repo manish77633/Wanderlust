@@ -11,6 +11,12 @@ const userSchema = new Schema({
     url: String,
     filename: String,
   },
+    bookings: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Listing",
+    },
+  ],
 });
 
 // ✅ Virtual to automatically create thumbnail (Cloudinary transformation)

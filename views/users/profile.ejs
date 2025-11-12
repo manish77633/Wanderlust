@@ -1,0 +1,60 @@
+<% layout("layouts/boilerplate") %>
+
+<div class="profile-page-modern container my-5">
+    <div class="card modern-profile-card shadow-lg border-0 rounded-4 p-md-5 p-3">
+        
+        <div class="row align-items-center mb-4 pb-3 border-bottom">
+            <div class="col-md-auto text-center">
+                <img
+                    src="<%= user.thumbnail %>"
+                    alt="Profile Picture"
+                    /* Reduced image size class */
+                    class="profile-img-small-modern border border-3 rounded-circle shadow-sm" 
+                />
+            </div>
+            <div class="col-md text-center text-md-start mt-3 mt-md-0">
+                <h1 style="font-family: popins;" class="fw-bolder display-6 text-primary mb-1"><%= user.username %></h1>
+                <p class="text-secondary fs-5 mb-0"><%= user.email %></p>
+                <span class="badge bg-success-subtle text-success mt-2">Verified Host</span>
+            </div>
+        </div>
+
+        <div class="mb-5">
+            <h4 class="fw-bold mb-3 text-dark">Your Dashboard</h4>
+            <div class="row gy-3">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <a href="/profile/my-properties" class="btn btn-outline-danger btn-lg w-100 rounded-3 profile-link-btn">
+                        <i class="fa-solid fa-house-chimney me-2"></i> My Properties
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <a href="/profile/booked-properties" class="btn btn-outline-danger btn-lg w-100 rounded-3 profile-link-btn">
+                        <i class="fa-solid fa-calendar-check me-2"></i> Booked Properties
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <a href="#" class="btn btn-outline-warning btn-lg w-100 rounded-3 profile-link-btn disabled" aria-disabled="true">
+                        <i class="fa-solid fa-chart-line me-2"></i> Host Analytics (Coming Soon)
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h4 class="fw-bold mb-3 text-dark">Account Settings</h4>
+            <div class="row gy-3">
+                <div class="col-md-6 col-12">
+                    <a href="/profile/edit" class="btn btn-primary btn-lg w-100 rounded-3">
+                        <i class="fa-solid fa-user-pen me-2"></i> Edit Profile
+                    </a>
+                </div>
+                <div class="col-md-6 col-12">
+                    <a href="/profile/settings" class="btn btn-secondary btn-lg w-100 rounded-3">
+                        <i class="fa-solid fa-gear me-2"></i> Settings
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

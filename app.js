@@ -26,6 +26,9 @@ const flash=require("connect-flash");
 const reviewrouter=require("./routes/review.js");
 const listingrouter=require("./routes/listing.js")
 const userrouter=require("./routes/user.js")
+const profileRoutes = require("./routes/profile.js");
+
+
 
 const passport=require("passport");
 const LocalStrategy=require("passport-local");
@@ -117,6 +120,7 @@ app.use((req, res, next) => {
 app.use("/listings", listingrouter);
 app.use("/listings/:id/reviews", reviewrouter);
 app.use("/", userrouter);
+app.use("/profile", profileRoutes);
 
 
 

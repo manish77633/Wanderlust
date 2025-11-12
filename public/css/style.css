@@ -1,3 +1,7 @@
+body {
+  /* padding-bottom: 100px; enough space above fixed footer */
+}
+
 @media (max-width: 550px) {
 
     /* Outer container (nav tag ka content) */
@@ -179,12 +183,19 @@
 
 /* ---------- Footer ---------- */
 .footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  background-color: #f8f9fa;
-  padding: 1rem 2rem;
-  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0.8rem 1rem;
+  z-index: 1000;
   display: flex;
   justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .footer-container {
@@ -197,6 +208,7 @@
   gap: 10px;
 }
 
+/* Left and Right Section */
 .footer-container .left,
 .footer-container .footer-right {
   display: flex;
@@ -206,71 +218,100 @@
   flex-wrap: wrap;
 }
 
+/* Text and Links */
 .footer-container p {
   margin: 0;
-  font-size: clamp(0.8rem, 1vw + 0.5rem, 1rem);
+  font-size: clamp(0.85rem, 1vw + 0.4rem, 1rem);
   color: #333;
 }
 
 .footer-container nav a {
-  margin-right: 1rem;
   text-decoration: none;
   color: #333;
-  font-size: clamp(0.8rem, 1vw + 0.5rem, 1rem);
+  font-size: clamp(0.85rem, 1vw + 0.4rem, 1rem);
+  transition: color 0.2s ease;
 }
 
-.footer-container nav a:last-child {
-  margin-right: 0;
+.footer-container nav a:hover {
+  color: #007bff;
 }
 
-.footer-container .footer-right span {
-  font-size: clamp(0.8rem, 1vw + 0.5rem, 1rem);
-  color: #333;
-}
-
+/* Social Icons */
 .footer-container .social-icons a {
   margin-left: 0.5rem;
   color: #333;
   font-size: clamp(1rem, 1.2vw + 0.2rem, 1.2rem);
+  transition: color 0.2s ease;
 }
 
 .footer-container .social-icons a:hover {
   color: #007bff;
 }
 
+/* ---------- Responsive Design ---------- */
+
+/* Tablet (≤ 768px) */
 @media (max-width: 768px) {
   .footer-container {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.6rem;
   }
 
   .footer-container .left,
   .footer-container .footer-right {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.3rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.4rem;
   }
 
-  .footer-container nav a {
-    margin-right: 0.5rem;
-    margin-bottom: 0.2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .footer-container {
-    padding: 0 1rem;
+  .footer-container nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
   }
 
   .footer-container p,
   .footer-container nav a,
   .footer-container .footer-right span {
-    font-size: clamp(0.7rem, 2vw, 0.9rem);
+    font-size: 0.85rem;
+  }
+
+  .footer-container .social-icons {
+    margin-top: 0.3rem;
   }
 
   .footer-container .social-icons a {
-    font-size: clamp(0.9rem, 2vw, 1rem);
+    font-size: 1.1rem;
+  }
+}
+
+/* Mobile (≤ 480px) */
+@media (max-width: 480px) {
+  .footer {
+    padding: 1rem;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .footer-container p,
+  .footer-container nav a,
+  .footer-container .footer-right span {
+    font-size: 0.8rem;
+  }
+
+  .footer-container .social-icons a {
+    font-size: 1rem;
   }
 }
 
@@ -461,4 +502,355 @@
 
 .text-center {
   padding-bottom: 2rem;
+}
+
+/* =========================
+   Edit Profile Page Styles (Airbnb Inspired)
+========================= */
+.edit-profile-page .card {
+  /* Listing Form/Modern Card ki max-width use kar sakte hain, ya 600px rakho */
+  max-width: 600px;
+  margin: auto;
+  border-radius: 18px; /* Softer rounded corners */
+  background: #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+.edit-profile-page .card-header {
+  /* Airbnb Primary Color Gradient */
+  background: linear-gradient(135deg, #ff385c, #d90f62); 
+  color: #fff;
+  border-radius: 18px 18px 0 0;
+  padding: 1rem;
+}
+
+.edit-profile-page .form-control {
+  border-radius: 12px; /* Thoda zyada rounded */
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.edit-profile-page .form-control:focus {
+  /* Airbnb Focus Effect */
+  border-color: #ff385c; 
+  box-shadow: 0 0 0 3px rgba(255, 56, 92, 0.2); 
+}
+
+/* Profile Image Size Adjustment */
+.edit-profile-page .profile-img-small {
+  /* Thoda chota kiya for modern look, but aap isko 50px/60px bhi kar sakte hain */
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border: 3px solid #ff385c; /* Red border around image */
+}
+
+.edit-profile-page button.btn {
+  /* Button Transition already good */
+  transition: 0.3s ease-in-out;
+}
+
+.edit-profile-page button.btn:hover {
+  transform: translateY(-1px); /* Slight lift instead of scale */
+}
+
+/* Ensure the Save Changes button uses the Airbnb red color */
+.edit-profile-page .btn-primary {
+    background-color: #ff385c !important;
+    border-color: #ff385c !important;
+}
+
+.edit-profile-page .btn-primary:hover {
+    background-color: #d90f62 !important;
+    border-color: #d90f62 !important;
+}
+
+/* Profile Page Styles */
+.profile-page {
+  padding-top: 40px;
+}
+
+.profile-page .profile-img {
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+  width: 120px;
+  height: 120px;
+}
+
+.profile-page .card {
+  max-width: 700px;
+  margin: auto;
+}
+
+.profile-page .btn {
+  transition: 0.3s;
+}
+
+.profile-page .btn:hover {
+  transform: scale(1.05);
+}
+
+/* ========================================= */
+/* FIX: MY PROPERTIES CARD WIDTH OVERRIDE    */
+/* ========================================= */
+
+/* .my-properties-card is a new class we will apply to the card wrapper */
+.my-properties-card {
+    /* Ensure the card container doesn't force unnecessary width limits */
+    flex: none !important; 
+    max-width: 100% !important; 
+}
+
+/* Ensure the card itself respects the column boundaries */
+.my-properties-card .card {
+    /* Reset general listing card flex properties to follow Bootstrap column constraints */
+    flex: 1 1 100% !important; 
+    max-width: 100% !important;
+    margin: 0 !important; /* Remove any conflicting margin */
+}
+
+/* Fix for the card image size which might be fixed by general rules */
+.my-properties-card .card img {
+    height: 15rem !important; /* Respecting the EJS set height */
+    object-fit: cover;
+}
+
+
+/* ========================================= */
+/* PROFILE PAGE MODERN STYLING (Revised)   */
+/* ========================================= */
+
+@keyframes background-gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Applying subtle, modern background animation */
+body {
+    background: linear-gradient(135deg, #f7f7f7, #f0f0f0, #e6e6e6);
+    background-size: 200% 200%;
+    animation: background-gradient 15s ease infinite;
+}
+
+.profile-page-modern {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+/* Modern Card Style */
+.modern-profile-card {
+    max-width: 900px;
+    margin: auto;
+    border-radius: 20px !important;
+    background-color: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Slightly darker shadow for contrast */
+}
+
+/* Smaller Profile Image Size (90px) */
+.profile-img-small-modern {
+    /* Reduced from 140px to 90px */
+    width: 90px; 
+    height: 90px;
+    object-fit: cover;
+    /* Red border for Airbnb branding */
+    border-color: #ff385c !important; 
+    transition: transform 0.3s ease;
+}
+
+.profile-img-small-modern:hover {
+    transform: scale(1.05);
+}
+
+/* Link Buttons Style */
+.profile-link-btn {
+    font-weight: 600;
+    padding: 15px 20px;
+    border-radius: 12px !important;
+    transition: all 0.3s ease;
+}
+
+.profile-link-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Ensuring Primary Button is Airbnb Red */
+.btn-primary {
+    background-color: #ff385c !important; /* Airbnb Red */
+    border-color: #ff385c !important;
+}
+
+.btn-primary:hover {
+    background-color: #d90f62 !important;
+    border-color: #d90f62 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .profile-img-small-modern {
+        width: 70px; /* Even smaller on mobile */
+        height: 70px;
+    }
+    .modern-profile-card {
+        padding: 20px !important;
+    }
+}
+
+/* ========================================= */
+/* NEW FEATURE: BOOK NOW HOVER OVERLAY       */
+/* ========================================= */
+
+/* 1. Initial State: Hide the 'Book Now' text/overlay */
+.card .card-img-overlay::after {
+    content: "BOOK NOW"; /* Text to display */
+    
+    /* Centering and Styling */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    color: white;
+    font-size: 1.6rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    
+    /* Dark semi-transparent background to cover the image slightly */
+    background-color: rgba(0, 0, 0, 0.4); 
+    
+    /* Hidden by default */
+    opacity: 0; 
+    transition: opacity 0.3s ease;
+    z-index: 5; /* Z-index above the image */
+}
+
+/* 2. Location Hiding: Hide the existing location text on hover */
+.card:hover .card-img-overlay h5 {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* 3. Hover Effect: Show the 'Book Now' overlay */
+.card:hover .card-img-overlay::after {
+    opacity: 1; /* Show the overlay */
+}
+
+/* Optional: Slight zoom on image when hovering the card */
+.card:hover img {
+    transform: scale(1.03); 
+    transition: transform 0.4s ease-in-out;
+}
+
+/* Reset the original card hover rule if it causes issues with the zoom */
+.card:hover {
+    /* Resetting the scale(1.05) rule if it exists and conflicts */
+    transform: none; 
+}
+
+/* ========================================= */
+/* BOOKED PROPERTIES PREMIUM STYLING (WIDTH FIX) */
+/* ========================================= */
+
+/* Container Width: Ensure the Bootstrap container is maximized for the wide cards */
+@media (min-width: 1400px) {
+    /* Set container to be very wide on extra-large screens (Bootstrap's XXL breakpoint) */
+    .container {
+        max-width: 1600px !important;
+    }
+}
+
+.premium-booking-card {
+    /* ... (rest of the premium styling remains the same) ... */
+    border-radius: 12px !important;
+    background-color: #ffffff;
+    border: 1px solid #ebebeb !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Image Styling for the wider card (col-lg-6) */
+.premium-booking-card img {
+    /* Height reduced slightly to 16rem so it doesn't look too tall on wider cards */
+    height: 16rem; 
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+
+/* ========================================= */
+/* BOOKED PROPERTIES PREMIUM AIRBNB STYLES   */
+/* ========================================= */
+
+/* --- Card Sizing Fix --- */
+.booked-card-style {
+    /* Ensures card respects the Bootstrap grid width */
+    flex: none !important; 
+    max-width: 100% !important;
+    transition: all 0.3s ease-in-out;
+}
+
+.booked-card-style img {
+    height: 16rem;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    border-radius: 8px; /* Use standard small radius */
+}
+
+.booked-card-style:hover img {
+    transform: scale(1.05); /* Softer zoom */
+}
+
+.booked-card-style:hover {
+    transform: translateY(-4px); /* Softer lift */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1) !important; /* Elegant shadow */
+}
+
+/* --- Color and Aesthetic Overrides --- */
+
+/* Text Heading: Removed Gradient, using primary Airbnb color or strong black */
+.text-gradient {
+    /* Changed from satrangi gradient to strong, deep black/red */
+    color: #222222; 
+    font-weight: 800; /* Ensure strong visibility */
+}
+
+/* Glassy Card Effect: Maintained, but ensure background is clean white */
+.bg-glass {
+    background: rgba(255, 255, 255, 0.95); /* Nearly opaque white */
+    backdrop-filter: blur(5px);
+}
+
+/* Button Styling: Single action color (Airbnb Red/Pink) */
+.btn-gradient {
+    /* Changed from satrangi gradient to flat Airbnb Red/Pink */
+    background-color: #ff385c; 
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-gradient:hover {
+    /* Darker Airbnb Red on hover */
+    background-color: #d90f62;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Clean button shadow */
+}
+
+/* Price Color: Using a standard, professional green for success status */
+.text-success {
+    color: #008489 !important; /* Airbnb's primary accent green/teal or a clean green */
+}
+
+/* Responsive Grid Width Fix */
+@media (min-width: 1200px) {
+    /* Maximizing container width for the 3-card layout */
+    .container {
+        max-width: 1400px;
+    }
 }
