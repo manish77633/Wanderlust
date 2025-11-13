@@ -118,3 +118,16 @@ module.exports.renderBookedProperties = async (req, res) => {
     res.redirect("/listings");
   }
 };
+module.exports.renderProfile = async (req, res) => {
+  try {
+    // Logged-in user ka ID use karke user data fetch karein
+    const user = await User.findById(req.user._id);
+    
+    // users/profile.ejs file render karein
+    res.render("users/profile", { user }); 
+  } catch (err) {
+    console.error("Error loading profile:", err);
+    req.flash("error", "Unable to load your profile.");
+    res.redirect("/listings");
+  }
+};

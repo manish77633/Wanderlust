@@ -36,4 +36,5 @@ router.get("/booked-properties", isLoggedIn, profileController.renderBookedPrope
 // 6. Book a listing (FIX for 404)
 router.post("/bookings/:id", isLoggedIn, profileController.bookListing);
 
+router.get("/", isLoggedIn, profileController.renderProfile);
 module.exports = router;
