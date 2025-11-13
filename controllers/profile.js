@@ -1,133 +1,148 @@
 const User = require("../models/user");
 const Listing = require("../models/listing");
 
-// Profile main page
+// 1. Profile main page
 module.exports.renderProfile = async (req, res) => {
-  try {
-    const user = await User.findById(req.user._id);
-    res.render("users/profile", { user });
-  } catch (err) {
-    console.error("Error loading profile:", err);
-    req.flash("error", "Unable to load your profile.");
-    res.redirect("/listings");
-  }
+    try {
+        const user = await User.findById(req.user._id);
+        res.render("users/profile", { user });
+    } catch (err) {
+        console.error("Error loading profile:", err);
+        req.flash("error", "Unable to load your profile.");
+        res.redirect("/listings");
+    }
 };
 
-// Edit Profile form
+// 2. Edit Profile form
 module.exports.renderEditForm = (req, res) => {
-  res.render("users/edit", { user: req.user });
+    res.render("users/edit", { user: req.user });
 };
 
-// Update Profile logic (Assuming POST handles file upload in routes)
+// 3. Update Profile logic
 module.exports.updateProfile = async (req, res) => {
-  try {
-    const { username, email } = req.body;
-    const user = await User.findById(req.user._id);
+    try {
+        const { username, email } = req.body;
+        const user = await User.findById(req.user._id);
 
-    user.username = username;
-    user.email = email;
+        user.username = username;
+        user.email = email;
 
-    if (req.file) {
-      user.profileImage = {
-        url: req.file.path,
-        filename: req.file.filename,
-      };
-    }
+        if (req.file) {
+            user.profileImage = {
+                url: req.file.path,
+                filename: req.file.filename,
+            };
+        }
 
-    await user.save();
-    req.flash("success", "Profile updated successfully!");
-    res.redirect("/profile");
-  } catch (err) {
-    console.error("Error updating profile:", err);
-    req.flash("error", "Error updating profile!");
-    res.redirect("/profile/edit");
-  }
+        await user.save();
+        req.flash("success", "Profile updated successfully!");
+        res.redirect("/profile");
+    } catch (err) {
+        console.error("Error updating profile:", err);
+        req.flash("error", "Error updating profile!");
+        res.redirect("/profile/edit");
+    }
 };
 
-// Settings page
+// 4. Settings page
 module.exports.renderSettings = (req, res) => {
-  res.render("users/settings", { user: req.user });
+    res.render("users/settings", { user: req.user });
 };
 
-// My Properties - listings created by the logged-in user
+// 5. My Properties - listings created by the logged-in user
 module.exports.myProperties = async (req, res) => {
-  try {
-    const userId = req.user._id;
-    const properties = await Listing.find({ owner: userId })
-      .populate("owner")
-      .populate({
-        path: "reviews",
-        populate: { path: "author" }
-      });
+    try {
+        const userId = req.user._id;
+        const properties = await Listing.find({ owner: userId })
+            .populate("owner")
+            .populate({
+                path: "reviews",
+                populate: { path: "author" }
+            });
 
-    res.render("users/myProperties.ejs", { properties });
-  } catch (err) {
-    console.error("Error loading user properties:", err);
-    req.flash("error", "Failed to load your listed properties.");
-    res.redirect("/profile");
-  }
+        res.render("users/myProperties.ejs", { properties });
+    } catch (err) {
+        console.error("Error loading user properties:", err);
+        req.flash("error", "Failed to load your listed properties.");
+        res.redirect("/profile");
+    }
 };
 
-// Book a listing
+// 6. Book a listing
 module.exports.bookListing = async (req, res) => {
-  try {
-    const listingId = req.params.id;
-    const user = await User.findById(req.user._id);
-    const listing = await Listing.findById(listingId);
+    try {
+        const listingId = req.params.id;
+        const user = await User.findById(req.user._id);
+        const listing = await Listing.findById(listingId);
 
-    if (!listing) {
-      req.flash("error", "Listing not found!");
-      return res.redirect("/listings");
-    }
+        if (!listing) {
+            req.flash("error", "Listing not found!");
+            return res.redirect("/listings");
+        }
 
-    // Check if the user is attempting to book their own property (optional guard)
-    if (listing.owner && listing.owner.equals(req.user._id)) {
-      req.flash("error", "You cannot book your own listing.");
-      return res.redirect(`/listings/${listingId}`);
-    }
+        // Check if the user is attempting to book their own property (optional guard)
+        if (listing.owner && listing.owner.equals(req.user._id)) {
+            req.flash("error", "You cannot book your own listing.");
+            return res.redirect(`/listings/${listingId}`);
+        }
 
-    // Initialize bookings array if undefined
-    if (!user.bookings) user.bookings = [];
+        // Initialize bookings array if undefined
+        if (!user.bookings) user.bookings = [];
 
-    // Avoid duplicate bookings and push the listing ID
-    if (!user.bookings.includes(listingId)) {
-      user.bookings.push(listingId);
-      await user.save();
-    }
+        // Avoid duplicate bookings and push the listing ID
+        if (!user.bookings.includes(listingId)) {
+            user.bookings.push(listingId);
+            await user.save();
+        }
 
-    req.flash("success", "Booking confirmed! ✅");
-    res.redirect("/profile/booked-properties");
-  } catch (err) {
-    console.error("Error confirming booking:", err);
-    req.flash("error", "Failed to confirm booking due to a server error.");
-    res.redirect("/listings");
-  }
+        req.flash("success", "Booking confirmed! ✅");
+        res.redirect("/profile/booked-properties");
+    } catch (err) {
+        console.error("Error confirming booking:", err);
+        req.flash("error", "Failed to confirm booking due to a server error.");
+        res.redirect("/listings");
+    }
 };
 
-// Booked Properties - listings the user has booked
+// 7. Booked Properties - listings the user has booked
 module.exports.renderBookedProperties = async (req, res) => {
-  try {
-    const user = await User.findById(req.user._id).populate("bookings");
-    // Ensure 'bookings' is always an array for safety in EJS
-    const userBookings = user.bookings || [];
+    try {
+        const user = await User.findById(req.user._id).populate("bookings");
+        // Ensure 'bookings' is always an array for safety in EJS
+        const userBookings = user.bookings || [];
 
-    res.render("users/bookedproperties", { user, bookings: userBookings });
-  } catch (err) {
-    console.error("Error loading booked properties:", err);
-    req.flash("error", "Unable to load booked properties!");
-    res.redirect("/listings");
-  }
+        res.render("users/bookedproperties", { user, bookings: userBookings });
+    } catch (err) {
+        console.error("Error loading booked properties:", err);
+        req.flash("error", "Unable to load booked properties!");
+        res.redirect("/listings");
+    }
 };
-module.exports.renderProfile = async (req, res) => {
-  try {
-    // Logged-in user ka ID use karke user data fetch karein
-    const user = await User.findById(req.user._id);
-    
-    // users/profile.ejs file render karein
-    res.render("users/profile", { user }); 
-  } catch (err) {
-    console.error("Error loading profile:", err);
-    req.flash("error", "Unable to load your profile.");
-    res.redirect("/listings");
-  }
+
+// 8. Cancel Booking (FIXED: Redirect path is correct, logic is sound)
+module.exports.cancelBooking = async (req, res) => {
+    try {
+        const { id } = req.params; // Listing ID to cancel
+
+        // Find logged-in user
+        const user = await User.findById(req.user._id);
+        if (!user) {
+            req.flash("error", "User not found!");
+            return res.redirect("/profile/booked-properties");
+        }
+
+        // Remove the listing from user's bookings array
+        user.bookings = user.bookings.filter(
+            bookingId => bookingId.toString() !== id
+        );
+        await user.save();
+
+        req.flash("success", "Booking cancelled successfully ❌");
+        // Redirect to the correct URL path where the list is rendered
+        res.redirect("/profile/booked-properties");
+    } catch (e) {
+        console.error(e);
+        req.flash("error", "Something went wrong!");
+        res.redirect("/profile/booked-properties");
+    }
 };
