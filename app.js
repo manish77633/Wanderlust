@@ -122,6 +122,10 @@ app.use("/listings/:id/reviews", reviewrouter);
 app.use("/", userrouter);
 app.use("/profile", profileRoutes);
 
+app.get('/ping', (req, res) => {
+    res.status(200).send("wanderlust backend is active!");
+});
+
 
 
 // app.get("/testListing", wrapAsync(async (req, res, next) => {
@@ -158,7 +162,4 @@ app.use((err, req, res, next) => {
 
 app.listen(8080, () => {
   console.log("server is listening to port 8080");
-});
-app.get('/ping', (req, res) => {
-    res.status(200).send("wanderlust backend is active!");
 });
